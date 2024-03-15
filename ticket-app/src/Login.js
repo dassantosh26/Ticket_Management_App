@@ -8,7 +8,7 @@ const Login = () => {
 
   const loginAuthorization = () => {
     if (email === "" || password === "") {
-      setMsg("Sorry ! Enter Email or PassWord");
+      setMsg("Sorry ! Empty Email or PassWord");
     } else {
       setMsg("Validating...");
       const url = "http://localhost:1111/auth";
@@ -35,7 +35,7 @@ const Login = () => {
       <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
-          <h4 className="text-center text-info mb-3"> {msg}</h4>
+          <p className="text-center text-danger mb-3 message"> {msg}</p>
           <div class="card border-0 shadow-lg">
             <div class="card-header bg-danger text-white">
               <i class="fa fa-lock fa-lg"></i> Login
