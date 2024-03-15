@@ -25,52 +25,56 @@ const Login = () => {
         .then((res) => res.json())
         .then((userInfo) => {
           setMsg(userInfo.status);
-          setEmail("");
-          setPassword("");
+          if (userInfo.id != "") {
+            localStorage.setItem("token", userInfo.id);
+            localStorage.setItem("name", userInfo.name);
+            localStorage.setItem("userType", userInfo.type);
+            window.location.reload();
+          }
         });
     }
   };
   return (
-    <div class="container mt-5 mb-5">
-      <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+    <div className="container mt-5 mb-5">
+      <div className="row">
+        <div className="col-lg-4"></div>
+        <div className="col-lg-4">
           <p className="text-center text-danger mb-3 message"> {msg}</p>
-          <div class="card border-0 shadow-lg">
-            <div class="card-header bg-danger text-white">
-              <i class="fa fa-lock fa-lg"></i> Login
+          <div className="card border-0 shadow-lg">
+            <div className="card-header bg-danger text-white">
+              <i className="fa fa-lock fa-lg"></i> Login
             </div>
-            <div class="card-body ">
-              <div class="mb-4">
+            <div className="card-body ">
+              <div className="mb-4">
                 <label> Email Id</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
               </div>
-              <div class="mb-4">
-                <label> PassWord</label>
+              <div className="mb-4">
+                <label> Password</label>
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
               </div>
             </div>
-            <div class="card-footer text-center">
-              <button class="btn btn-primary" onClick={loginAuthorization}>
-                Login <i class="fa fa-arrow-right"></i>
+            <div className="card-footer text-center">
+              <button className="btn btn-primary" onClick={loginAuthorization}>
+                Login <i className="fa fa-arrow-right"></i>
               </button>
             </div>
           </div>
-          <p class="text-center mt-5 mb-5">
+          <p className="text-center mt-5 mb-5">
             <Link to={"/register"}>New ? Register</Link>
           </p>
         </div>
-        <div class="col-lg-4"></div>
+        <div className="col-lg-4"></div>
       </div>
     </div>
   );

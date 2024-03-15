@@ -1,9 +1,15 @@
-import UserModule from "./UserApp";
+import UserModule from "./user/UserApp";
+import AdminModule from "./admin/AdminApp";
+import PublicModule from "./PublicModule";
 
 function App() {
-  return <div>
-    <UserModule/>
-  </div>;
+  if (localStorage.getItem("userType") === "ADMIN") {
+    return <AdminModule />;
+  } else if (localStorage.getItem("userType") === "USER") {
+    return <UserModule />;
+  } else {
+    return <PublicModule />;
+  }
 }
 
 export default App;

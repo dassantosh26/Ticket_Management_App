@@ -2,7 +2,7 @@ import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 
-const UserModule = () => {
+const PublicModule = () => {
   return (
     <HashRouter>
       <Routes>
@@ -13,4 +13,4 @@ const UserModule = () => {
     </HashRouter>
   );
 };
-export default UserModule;
+export default PublicModule;
