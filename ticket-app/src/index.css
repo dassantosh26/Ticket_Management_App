@@ -15,3 +15,31 @@ code {
 .message {
   text-transform: capitalize;
 }
+.bg-custom {
+  background-color: #26507b;
+}
+
+.my-icon{
+  color: yellow;
+}
+.row .col {
+  min-height: 35%;
+  width:18%;
+  
+  border: 1px solid #dbdad7;
+
+  text-align: center;
+  font-size: 30px;
+}
+.icon-1{
+  color:rgb(0, 128, 255);
+}
+.icon-2{
+  color:orange;
+}
+.icon-3{
+  color:red;
+}
+.icon-4{
+  color:green;
+}

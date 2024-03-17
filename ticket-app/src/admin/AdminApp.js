@@ -4,9 +4,7 @@ import AdminDashboard from "./AdminDashboard";
 const AdminModule = () => {
   return (
     <HashRouter>
-      <h1>Welcome To Admin Module</h1>
       <AdminDashboard />
-      <button onClick={logout}>Logout</button>
     </HashRouter>
   );
 };
