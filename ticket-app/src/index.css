@@ -19,33 +19,18 @@ code {
   background-color: #26507b;
 }
 
-.my-icon {
-  color: yellow;
+.navbar{
+  background : navy;
 }
-.row .col {
-  min-height: 35%;
-  width: 18%;
-  border: 1px solid #dbdad7;
-  text-align: center;
+
+.navbar-brand i{
+  font-size: 40px;
 }
-.icon-1 {
-  color: rgb(0, 128, 255);
-}
-.icon-2 {
-  color: orange;
-}
-.icon-3 {
-  color: red;
-}
-.icon-4 {
-  color: green;
-}
-.icon-5 {
-  color: aqua;
-}
-.row .col-lg-3 {
-  min-height: 40%;
-  width: 22%;
-  border: 1px solid #dbdad7;
-  text-align: center;
+
+.dashboard-box{
+  margin: 10px;
+  margin-right: 10px;
+  padding: 20px 40px 10px;
+  border: 1px solid grey;
+  border-radius: 5px;
 }
