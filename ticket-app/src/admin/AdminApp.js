@@ -10,7 +10,3 @@ const AdminModule = () => {
 };
 export default AdminModule;
 
-const logout = () => {
-  localStorage.clear();
-  window.location.reload();
-};
