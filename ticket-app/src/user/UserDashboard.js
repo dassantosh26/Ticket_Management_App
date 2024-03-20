@@ -11,7 +11,7 @@ const UserDashboard = () => {
                 <div className="col-lg-1"></div>
                 <div className="col-lg-2 text-center dashboard-box">
                     <i className="fa-regular fa-folder-open fa-3x text-primary pb-3"></i>
-                    <h5> All Tickets : 2 </h5>
+                    <h5> All Tickets :  </h5>
                 </div>
                 <div className="col-lg-2 text-center dashboard-box">
                     <i className="fa-solid fa-user-check fa-3x text-warning pb-3"></i>

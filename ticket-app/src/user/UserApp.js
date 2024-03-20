@@ -7,7 +7,7 @@ const UserModule = () => {
     <HashRouter>
     <nav className="navbar navbar-expand-sm navbar-dark sticky-top">
         <div className="container">
-            <a className="navbar-brand"> <i className="fa fa-handshake fa-lg text-warning"></i> We Help </a>
+            <Link className="navbar-brand"> <i className="fa fa-handshake fa-lg text-warning"></i> We Help </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
             <span className="navbar-toggler-icon"></span>
             </button>

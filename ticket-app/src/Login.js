@@ -25,7 +25,7 @@ const Login = () => {
         .then((res) => res.json())
         .then((userInfo) => {
           setMsg(userInfo.status);
-          if (userInfo.id != "") {
+          if (userInfo.id !== "") {
             localStorage.setItem("token", userInfo.id);
             localStorage.setItem("name", userInfo.name);
             localStorage.setItem("userType", userInfo.type);

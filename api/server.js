@@ -18,7 +18,12 @@ app.use("/auth", login);
 
 //http://localhost:1111/auth
 
+//tickets
+
+const tickets = require("./ticketApi");
+app.use("/ticket", tickets);
+http://localhost:1111/ticket
+
 app.listen(1111, function () {
   console.log("The Server Is Live...");
 });
-
