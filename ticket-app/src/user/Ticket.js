@@ -6,6 +6,9 @@ const UserTicket = () => {
   const [details, setDetails] = useState("");
   const [allTickets, setTicket] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [openTicketCount, setOpenTicketCount] = useState(0);
+  const [closedTicketCount, setClosedTicketCount] = useState(0);
+  const [assignedTicketCount, setAssignedTicketCount] = useState(0);
 
   const userId = localStorage.getItem("token");
 
@@ -43,6 +46,22 @@ const UserTicket = () => {
       .then((tickets) => {
         if (tickets != null) {
           setTicket(tickets);
+          // Calculate the number of tickets in each status
+          const openTickets = tickets.filter(
+            (ticket) => ticket.status === "OPEN"
+          ).length;
+          const closedTickets = tickets.filter(
+            (ticket) => ticket.status === "CLOSE"
+          ).length;
+          const assignedTickets = tickets.filter(
+            (ticket) => ticket.status === "ASSIGN"
+          ).length;
+          setOpenTicketCount(openTickets);
+          setClosedTicketCount(closedTickets);
+          setAssignedTicketCount(assignedTickets);
+          // console.log(openTickets);
+          // console.log(closedTickets);
+          // console.log(assignedTickets);
         }
       });
   };
@@ -70,7 +89,6 @@ const UserTicket = () => {
         getTicket();
       });
   };
-
   return (
     <div className="container mt-4">
       <div className="row mb-5">
@@ -134,20 +152,24 @@ const UserTicket = () => {
             <tbody>
               {allTickets.map((ticket, index) => {
                 if (
-                  ticket.title.toLowerCase().match(keyword.toLowerCase()) ||
-                  ticket.details.toLowerCase().match(keyword.toLowerCase()) ||
-                  ticket.createddate.toLowerCase().match(keyword.toLowerCase())
+                  ticket.title?.toLowerCase().includes(keyword.toLowerCase()) ||
+                  ticket.details
+                    ?.toLowerCase()
+                    .includes(keyword.toLowerCase()) ||
+                  ticket.createdDate
+                    .toLowerCase()
+                    .includes(keyword.toLowerCase())
                 )
                   return (
                     <tr key={index}>
                       <td> {ticket.title} </td>
                       <td> {ticket.details} </td>
-                      <td> {ticket.createddate} </td>
+                      <td> {ticket.createdDate} </td>
                       <td width={"20%"}>
                         {ticket.status}
                         <p>
                           <label className="me-2">
-                            Open{" "}
+                            Open
                             <input
                               type="radio"
                               name="sts"
@@ -159,7 +181,7 @@ const UserTicket = () => {
                             />
                           </label>
                           <label className="me-2">
-                            Assigned{" "}
+                            Assigned
                             <input
                               type="radio"
                               name="sts"
@@ -171,7 +193,7 @@ const UserTicket = () => {
                             />
                           </label>
                           <label>
-                            Close{" "}
+                            Close
                             <input
                               type="radio"
                               name="sts"
