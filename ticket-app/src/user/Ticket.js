@@ -6,9 +6,6 @@ const UserTicket = () => {
   const [details, setDetails] = useState("");
   const [allTickets, setTicket] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [openTicketCount, setOpenTicketCount] = useState(0);
-  const [closedTicketCount, setClosedTicketCount] = useState(0);
-  const [assignedTicketCount, setAssignedTicketCount] = useState(0);
 
   const userId = localStorage.getItem("token");
 
@@ -46,22 +43,6 @@ const UserTicket = () => {
       .then((tickets) => {
         if (tickets != null) {
           setTicket(tickets);
-          // Calculate the number of tickets in each status
-          const openTickets = tickets.filter(
-            (ticket) => ticket.status === "OPEN"
-          ).length;
-          const closedTickets = tickets.filter(
-            (ticket) => ticket.status === "CLOSE"
-          ).length;
-          const assignedTickets = tickets.filter(
-            (ticket) => ticket.status === "ASSIGN"
-          ).length;
-          setOpenTicketCount(openTickets);
-          setClosedTicketCount(closedTickets);
-          setAssignedTicketCount(assignedTickets);
-          // console.log(openTickets);
-          // console.log(closedTickets);
-          // console.log(assignedTickets);
         }
       });
   };
@@ -70,25 +51,6 @@ const UserTicket = () => {
     getTicket();
   }, []);
 
-  const updateStatus = (tId, status) => {
-    // alert(tId+status)
-    const url = "http://localhost:1111/ticket/" + tId;
-    const inputData = {
-      id: tId,
-      newStatus: status,
-    };
-    const updateData = {
-      headers: { "Content-Type": "application/json" },
-      method: "PUT",
-      body: JSON.stringify(inputData),
-    };
-    fetch(url, updateData)
-      .then((response) => response.json())
-      .then((message) => {
-        swal("Ticket Updated", message.message, "success");
-        getTicket();
-      });
-  };
   return (
     <div className="container mt-4">
       <div className="row mb-5">
@@ -165,47 +127,7 @@ const UserTicket = () => {
                       <td> {ticket.title} </td>
                       <td> {ticket.details} </td>
                       <td> {ticket.createdDate} </td>
-                      <td width={"20%"}>
-                        {ticket.status}
-                        <p>
-                          <label className="me-2">
-                            Open
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "OPEN"
-                              )}
-                            />
-                          </label>
-                          <label className="me-2">
-                            Assigned
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "ASSIGN"
-                              )}
-                            />
-                          </label>
-                          <label>
-                            Close
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "CLOSE"
-                              )}
-                            />
-                          </label>
-                        </p>
-                      </td>
+                      <td>{ticket.status}</td>
                     </tr>
                   );
               })}

@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import AdminDashboard from "./AdminDashboard";
+import AdminTicket from "./AdminTicket";
 
 const AdminModule = () => {
   return (
@@ -21,7 +22,7 @@ const AdminModule = () => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item me-4">
                 <Link className="nav-link active" to="/">
-                  <i class="fa-solid fa-square-poll-vertical"></i> Admin
+                  <i className="fa-solid fa-square-poll-vertical"></i> Admin
                   Dashboard
                 </Link>
               </li>
@@ -31,8 +32,8 @@ const AdminModule = () => {
                 </Link>
               </li>
               <li className="nav-item me-4">
-                <Link className="nav-link active" to="/login">
-                  <i className="fa-solid fa-ticket"></i> My Tickets
+                <Link className="nav-link active" to="/adminTicket">
+                  <i className="fa-solid fa-ticket"></i> Tickets
                 </Link>
               </li>
               <li className="nav-item me-4">
@@ -53,6 +54,7 @@ const AdminModule = () => {
 
       <Routes>
         <Route exact path="/" element={<AdminDashboard />} />
+        <Route exact path="/adminTicket" element={<AdminTicket />} />
       </Routes>
     </HashRouter>
   );
@@ -60,5 +62,6 @@ const AdminModule = () => {
 export default AdminModule;
 const logout = () => {
   localStorage.clear();
+  window.location.href = "http://localhost:3000/#/";
   window.location.reload();
 };
