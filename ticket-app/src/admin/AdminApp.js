@@ -1,6 +1,8 @@
 import { HashRouter, Routes, Route, Link } from "react-router-dom";
 import AdminDashboard from "./AdminDashboard";
 import AdminTicket from "./AdminTicket";
+import NewEmployee from "./NewEmployee";
+import ManageUser from "./MangeUser";
 
 const AdminModule = () => {
   return (
@@ -27,8 +29,8 @@ const AdminModule = () => {
                 </Link>
               </li>
               <li className="nav-item me-4">
-                <Link className="nav-link active" to="/login">
-                  <i className="fa-solid fa-house-user"></i> Account
+                <Link className="nav-link active" to="/userList">
+                  <i className="fa-solid fa-users"></i> Manage User
                 </Link>
               </li>
               <li className="nav-item me-4">
@@ -37,8 +39,8 @@ const AdminModule = () => {
                 </Link>
               </li>
               <li className="nav-item me-4">
-                <Link className="nav-link active" to="/register">
-                  <i className="fa-solid fa-user-plus"></i> Add New Account
+                <Link className="nav-link active" to="/newEmp">
+                  <i className="fa-solid fa-user-tie"></i> Manage Employee
                 </Link>
               </li>
               <li className="nav-item">
@@ -55,6 +57,8 @@ const AdminModule = () => {
       <Routes>
         <Route exact path="/" element={<AdminDashboard />} />
         <Route exact path="/adminTicket" element={<AdminTicket />} />
+        <Route exact path="/newEmp" element={<NewEmployee />} />
+        <Route exact path="/userList" element={<ManageUser />} />
       </Routes>
     </HashRouter>
   );

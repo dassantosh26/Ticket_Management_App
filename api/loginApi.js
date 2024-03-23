@@ -3,6 +3,11 @@ const router = express.Router();
 module.exports = router;
 const MyAdmin = require("./adminSchema");
 
+router.get("/", async (req, res) => {
+  const allAccounts = await MyAdmin.find();
+  res.status(200).json(allAccounts);
+});
+
 router.post("/", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -36,9 +41,9 @@ router.put("/", async (req, res) => {
     mobile: mobile,
     email: email,
     password: password,
-    userType:"USER"
+    userType: req.body.userType,
   });
 
   const info = await userData.save();
-  res.status(200).json({ 'message': "Account Created Successfully" });
+  res.status(200).json({ message: "Account Created Successfully" });
 });

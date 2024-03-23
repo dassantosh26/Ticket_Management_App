@@ -5,6 +5,17 @@ const AdminDashboard = () => {
   const [openTicketCount, setOpenTicketCount] = useState(0);
   const [closedTicketCount, setClosedTicketCount] = useState(0);
   const [assignedTicketCount, setAssignedTicketCount] = useState(0);
+  const [allEmp, setAllEmp] = useState([]);
+  const getEmp = () => {
+    const url = "http://localhost:1111/auth";
+    fetch(url)
+      .then((res) => res.json())
+      .then((empArray) => {
+        setAllEmp(empArray.reverse());
+      });
+  };
+
+ 
 
   const getTicket = () => {
     const url = "http://localhost:1111/ticket";
@@ -32,6 +43,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     getTicket();
+    getEmp();
   }, []);
   return (
     <div className="container mt-4">
@@ -43,7 +55,7 @@ const AdminDashboard = () => {
         {/* <div className="col-lg-1"></div> */}
         <div className="col-lg-2 text-center dashboard-box">
           <i className="fa-solid fa-users fa-3x text-primary pb-3"></i>
-          <h5> Active Accounts : 12 </h5>
+          <h5> Active Accounts : {allEmp.length} </h5>
         </div>
         <div className="col-lg-2 text-center dashboard-box">
           <i className="fa-solid fa-ticket fa-3x text-secondary pb-3"></i>

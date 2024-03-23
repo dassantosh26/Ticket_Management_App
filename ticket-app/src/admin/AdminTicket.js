@@ -4,9 +4,6 @@ import swal from "sweetalert";
 const AdminTicket = () => {
   const [allTickets, setTicket] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [openTicketCount, setOpenTicketCount] = useState(0);
-  const [closedTicketCount, setClosedTicketCount] = useState(0);
-  const [assignedTicketCount, setAssignedTicketCount] = useState(0);
 
   const getTicket = () => {
     const url = "http://localhost:1111/ticket";
@@ -71,13 +68,9 @@ const AdminTicket = () => {
             <tbody>
               {allTickets.map((ticket, index) => {
                 if (
-                  ticket.title?.toLowerCase().includes(keyword.toLowerCase()) ||
-                  ticket.details
-                    ?.toLowerCase()
-                    .includes(keyword.toLowerCase()) ||
-                  ticket.createdDate
-                    .toLowerCase()
-                    .includes(keyword.toLowerCase())
+                  ticket.title?.toLowerCase().match(keyword.toLowerCase()) ||
+                  ticket.details?.toLowerCase().match(keyword.toLowerCase()) ||
+                  ticket.createdDate.toLowerCase().match(keyword.toLowerCase())
                 )
                   return (
                     <tr key={index}>
@@ -87,6 +80,13 @@ const AdminTicket = () => {
                       <td width={"20%"}>
                         {ticket.status}
                         <p>
+                          <label
+                            className="me-4 text-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#myModal"
+                          >
+                            Assign Now
+                          </label>
                           <label className="me-2">
                             Open
                             <input
@@ -96,18 +96,6 @@ const AdminTicket = () => {
                                 this,
                                 ticket._id,
                                 "OPEN"
-                              )}
-                            />
-                          </label>
-                          <label className="me-2">
-                            Assigned
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "ASSIGNED"
                               )}
                             />
                           </label>
@@ -130,6 +118,42 @@ const AdminTicket = () => {
               })}
             </tbody>
           </table>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="myModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Modal title
+              </h1>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">...</div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" className="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

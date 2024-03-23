@@ -114,13 +114,9 @@ const UserTicket = () => {
             <tbody>
               {allTickets.map((ticket, index) => {
                 if (
-                  ticket.title?.toLowerCase().includes(keyword.toLowerCase()) ||
-                  ticket.details
-                    ?.toLowerCase()
-                    .includes(keyword.toLowerCase()) ||
-                  ticket.createdDate
-                    .toLowerCase()
-                    .includes(keyword.toLowerCase())
+                  ticket.title?.toLowerCase().match(keyword.toLowerCase()) ||
+                  ticket.details?.toLowerCase().match(keyword.toLowerCase()) ||
+                  ticket.createdDate.toLowerCase().match(keyword.toLowerCase())
                 )
                   return (
                     <tr key={index}>
