@@ -4,6 +4,9 @@ import swal from "sweetalert";
 const AdminTicket = () => {
   const [allTickets, setTicket] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [allEmp, setAllEmp] = useState([]);
+  const [ticketId, setTicketId] = useState("");
+  const [empId, setEmpId] = useState("");
 
   const getTicket = () => {
     const url = "http://localhost:1111/ticket";
@@ -16,8 +19,18 @@ const AdminTicket = () => {
       });
   };
 
+  const getEmp = () => {
+    const url = "http://localhost:1111/auth";
+    fetch(url)
+      .then((res) => res.json())
+      .then((empArray) => {
+        setAllEmp(empArray);
+      });
+  };
+
   useEffect(() => {
     getTicket();
+    getEmp();
   }, []);
 
   const updateStatus = (tId, status) => {
@@ -36,6 +49,31 @@ const AdminTicket = () => {
       .then((response) => response.json())
       .then((message) => {
         swal("Ticket Updated", message.message, "success");
+        getTicket();
+      });
+  };
+
+  const processTicket = (tId) => {
+    setTicketId(tId);
+    // alert(tId);
+  };
+
+  const assignTicket = () => {
+    // alert(ticketId);
+    const url = "http://localhost:1111/ticket/assign";
+    const inputData = {
+      id: ticketId,
+      assignTo: empId,
+    };
+    const postData = {
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      body: JSON.stringify(inputData),
+    };
+    fetch(url, postData)
+      .then((response) => response.json())
+      .then((ticketInfo) => {
+        swal("Ticket Updated", ticketInfo.message, "success");
         getTicket();
       });
   };
@@ -84,6 +122,7 @@ const AdminTicket = () => {
                             className="me-4 text-danger"
                             data-bs-toggle="modal"
                             data-bs-target="#myModal"
+                            onClick={processTicket.bind(this, ticket._id)}
                           >
                             Assign Now
                           </label>
@@ -112,6 +151,7 @@ const AdminTicket = () => {
                             />
                           </label>
                         </p>
+                        <p>Assigned To : {ticket.assignTo} </p>
                       </td>
                     </tr>
                   );
@@ -131,7 +171,7 @@ const AdminTicket = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Modal title
+                Ticket Assignment
               </h1>
               <button
                 type="button"
@@ -140,17 +180,31 @@ const AdminTicket = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
-            <div className="modal-footer">
+            <div className="modal-body">
+              <p>Choose Employee</p>
+              <select
+                className="form-select "
+                onChange={(e) => setEmpId(e.target.value)}
+              >
+                <option>Choose Employee</option>
+
+                {allEmp.map((emp, index) => {
+                  if (emp.userType === "EMPLOYEE" || emp.userType === "ADMIN")
+                    return (
+                      <option key={index} value={emp._id}>
+                        {emp.fullName}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="modal-footer justify-content-center">
               <button
                 type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
+                className="btn btn-primary"
+                onClick={assignTicket}
               >
-                Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save changes
+                Submit
               </button>
             </div>
           </div>

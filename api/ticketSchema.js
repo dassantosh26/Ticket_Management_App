@@ -5,6 +5,6 @@ const tableStructure = new mongoose.Schema({
   createdBy: { type: String, required: true },
   status: { type: String, required: true },
   createdDate: { type: String, required: true },
-  assignto: { type: String },
+  assignTo: { type: String },
 });
 module.exports = mongoose.model("UserTicket", tableStructure);

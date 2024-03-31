@@ -25,6 +25,15 @@ router.post("/", async (req, res) => {
   res.status(200).json(ticketInfo);
 });
 
+router.post("/:assign", async (req, res) => {
+  const assignTo = req.body.assignTo;
+  const id = req.body.id;
+  const info = await UserTicket.findById(id);
+  info.assignTo = assignTo;
+  await info.save();
+  res.status(200).json({ message: "Ticket Is Assigned Successfully !" });
+});
+
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   const info = await UserTicket.find({ createdBy: id });
