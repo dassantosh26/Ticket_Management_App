@@ -151,7 +151,19 @@ const AdminTicket = () => {
                             />
                           </label>
                         </p>
-                        <p>Assigned To : {ticket.assignTo} </p>
+                        <div className="text-info fw-bold">
+                          {/* Assigned To : {ticket.assignTo} */}
+                          Assigned To :
+                          {allEmp.map((emp, index2) => {
+                            if (emp._id === ticket.assignTo) {
+                              return (
+                                <p key={index2} className="text-success ">
+                                  {emp.fullName}
+                                </p>
+                              );
+                            }
+                          })}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -160,6 +172,8 @@ const AdminTicket = () => {
           </table>
         </div>
       </div>
+
+      {/* Modal */}
       <div
         className="modal fade"
         id="myModal"
