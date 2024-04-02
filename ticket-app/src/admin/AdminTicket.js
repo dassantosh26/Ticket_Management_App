@@ -104,70 +104,74 @@ const AdminTicket = () => {
               </tr>
             </thead>
             <tbody>
-              {allTickets.map((ticket, index) => {
-                if (
-                  ticket.title?.toLowerCase().match(keyword.toLowerCase()) ||
-                  ticket.details?.toLowerCase().match(keyword.toLowerCase()) ||
-                  ticket.createdDate.toLowerCase().match(keyword.toLowerCase())
+              {allTickets
+                .filter(
+                  (ticket) =>
+                    ticket.title
+                      ?.toLowerCase()
+                      .includes(keyword.toLowerCase()) ||
+                    ticket.details
+                      ?.toLowerCase()
+                      .includes(keyword.toLowerCase()) ||
+                    ticket.createdDate
+                      .toLowerCase()
+                      .includes(keyword.toLowerCase())
                 )
-                  return (
-                    <tr key={index}>
-                      <td> {ticket.title} </td>
-                      <td> {ticket.details} </td>
-                      <td> {ticket.createdDate} </td>
-                      <td width={"20%"}>
-                        {ticket.status}
-                        <p>
-                          <label
-                            className="me-4 text-danger"
-                            data-bs-toggle="modal"
-                            data-bs-target="#myModal"
-                            onClick={processTicket.bind(this, ticket._id)}
-                          >
-                            Assign Now
-                          </label>
-                          <label className="me-2">
-                            Open
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "OPEN"
-                              )}
-                            />
-                          </label>
-                          <label>
-                            Closed
-                            <input
-                              type="radio"
-                              name="sts"
-                              onClick={updateStatus.bind(
-                                this,
-                                ticket._id,
-                                "CLOSED"
-                              )}
-                            />
-                          </label>
-                        </p>
-                        <div className="text-info fw-bold">
-                          {/* Assigned To : {ticket.assignTo} */}
-                          Assigned To :
-                          {allEmp.map((emp, index2) => {
-                            if (emp._id === ticket.assignTo) {
-                              return (
-                                <p key={index2} className="text-success ">
-                                  {emp.fullName}
-                                </p>
-                              );
-                            }
-                          })}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-              })}
+                .map((ticket, index) => (
+                  <tr key={index}>
+                    <td> {ticket.title} </td>
+                    <td> {ticket.details} </td>
+                    <td> {ticket.createdDate} </td>
+                    <td width={"20%"}>
+                      {ticket.status}
+                      <p>
+                        <label
+                          className="me-4 text-danger"
+                          data-bs-toggle="modal"
+                          data-bs-target="#myModal"
+                          onClick={processTicket.bind(this, ticket._id)}
+                        >
+                          Assign Now
+                        </label>
+                        <label className="me-2">
+                          Open
+                          <input
+                            type="radio"
+                            name="sts"
+                            onClick={updateStatus.bind(
+                              this,
+                              ticket._id,
+                              "OPEN"
+                            )}
+                          />
+                        </label>
+                        <label>
+                          Closed
+                          <input
+                            type="radio"
+                            name="sts"
+                            onClick={updateStatus.bind(
+                              this,
+                              ticket._id,
+                              "CLOSED"
+                            )}
+                          />
+                        </label>
+                      </p>
+                      <div className="text-info fw-bold">
+                        {/* Assigned To : {ticket.assignTo} */}
+                        Assigned To :
+                        {allEmp
+                          .filter((emp) => emp._id === ticket.assignTo)
+                          .map((emp, index2) => (
+                            <p key={index2} className="text-success ">
+                              {emp.fullName}
+                            </p>
+                          ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -202,14 +206,16 @@ const AdminTicket = () => {
               >
                 <option>Choose Employee</option>
 
-                {allEmp.map((emp, index) => {
-                  if (emp.userType === "EMPLOYEE" || emp.userType === "ADMIN")
-                    return (
-                      <option key={index} value={emp._id}>
-                        {emp.fullName}
-                      </option>
-                    );
-                })}
+                {allEmp
+                  .filter(
+                    (emp) =>
+                      emp.userType === "EMPLOYEE" || emp.userType === "ADMIN"
+                  )
+                  .map((emp, index) => (
+                    <option key={index} value={emp._id}>
+                      {emp.fullName}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="modal-footer justify-content-center">
